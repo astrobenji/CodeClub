@@ -1,6 +1,8 @@
 # CodeClub
  A place to encourage students to show each other their code, and discuss new approaches. All code welcome! :D
 
+![C](https://github.com/astrobenji/CodeClub/assets/45115981/f772cd26-d9d9-433c-9204-47d02fc2a572)
+
 Signup sheet for presenters/snack shoppers: <https://docs.google.com/spreadsheets/d/1EN4DsyzJRrPqZYGjVVoIZSzU6xv99oc1mAqXVlkFI7U/edit?usp=sharing>
 
 Join the slack here! <https://astrophysicsatunimelb.slack.com/archives/C05LY6L01KK>

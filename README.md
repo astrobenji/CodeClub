@@ -1,2 +1,11 @@
 # CodeClub
  A place to encourage students to show each other their code, and discuss new approaches. All code welcome! :D
+
+Signup sheet for presenters/snack shoppers: (this will come in a minute sorry)
+
+Join the slack here! <https://astrophysicsatunimelb.slack.com/archives/C05LY6L01KK>
+
+Zoom link for Monday meetings (odd semester weeks, 4pm): <https://unimelb.zoom.us/j/87200562760?pwd=cFRZT3VmcjljU04zRjFHSTJTQXJtZz09#success>   
+Zoom link for Thursday meetings (even semester weeks, 2.30pm): <https://unimelb.zoom.us/j/86252904813?pwd=SDNzUVBWWVZwc0xEYnNrUnNBNWJFdz09#success>  
+For both of these meetings, the password is 13314
+

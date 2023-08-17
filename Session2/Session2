@@ -1,0 +1,66 @@
+#How many galaxies there are inside each metal bubble? Possibly as fast as possible
+
+import numpy as np
+import math as mh
+import matplotlib.pyplot as plt
+from scipy.spatial import cKDTree
+from tqdm import tqdm
+
+#Load the Meraxes file (Rbubble is in physical units!)
+
+ID, PosX, PosY, PosZ, Rbubble = np.loadtxt('./GalMeraxes.dat',usecols = (0,1,2,3,4), unpack = True)
+Pos = np.array([[PosX],[PosY],[PosZ]]).transpose()
+print(np.shape(Pos[:,0,:]))
+
+#Find which galaxies have a Rbubble > 0. Save their ID. 
+BubbleID = np.where(Rbubble > 0.)
+
+print('Gal with a bubble:', len(BubbleID[0]),'Tot Gal:', len(ID))
+
+GalBubble = ID[BubbleID]
+
+#Build a KDTree to find quickly how many galaxies fall inside a bubble
+tree = cKDTree(Pos[:,0,:],boxsize = 10.0+0.0001)
+
+#Initialize array for the number of pairs of each bubble
+Npairs = np.zeros(len(BubbleID[0]))
+
+for ii in tqdm(range(len(BubbleID[0]))):
+    #pick the index of those galaxies with Rbubble > 0
+    val = BubbleID[0][ii]
+
+    #Query_ball_point is an optimized function that find all points within distance r of point(s) x.
+    neighbours = tree.query_ball_point(Pos[val,0,:],Rbubble[val]*11.0)
+    Npairs[ii] = len(neighbours)
+
+    #Function to plot this: Select a 2D (xy) slice centered at the z coordinate of your bubble and with a width of +-Rbubble
+    B1 = np.where((Pos[:,0,2] > (Pos[val,0,2]-(Rbubble[val]*11))) == True)
+    B2 = np.where((Pos[:,0,2] < (Pos[val,0,2]+(Rbubble[val]*11))) == True) 
+    B = np.intersect1d(B1[0], B2[0])
+    print('There are',int(Npairs[ii]), 'galaxies inside the bubble', ii)
+
+    #plot this only when you don't have heaps of pairs so it's easy to double check.
+    if (Npairs[ii] <= 10):
+        fig, ax = plt.subplots()
+        ax.scatter(Pos[B,0,0],Pos[B,0,1],color = 'Grey', s = 1)
+        ax.scatter(Pos[val,0,0],Pos[val,0,1],color = 'Blue', s = 10)
+        cir = plt.Circle((Pos[val,0,0],Pos[val,0,1]), Rbubble[val]*11, color='Black',fill=False)
+        ax.add_patch(cir)
+        ax.set_xlim(0,10)
+        ax.set_ylim(0,10)
+        ax.set_aspect('equal', adjustable='box')
+        plt.show()
+#i=1
+
+#value = BubbleID[0][0]
+#B1 = np.where((Pos[:,0,2] > (Pos[value,0,2]-(Rbubble[value]*11))) == True)
+#B2 = np.where((Pos[:,0,2] < (Pos[value,0,2]+(Rbubble[value]*11))) == True)                            
+#B = np.intersect1d(B1[0], B2[0])
+#C = np.intersect1d(B,BubbleID[0])
+
+#E = np.where(GalBubble == ID[C[0]])
+#print(E[0])
+#print(Npairs[0])
+
+#print(C[0],ID[C[0]],Rbubble[C[0]])
+

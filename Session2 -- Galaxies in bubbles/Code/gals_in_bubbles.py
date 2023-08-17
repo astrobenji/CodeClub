@@ -31,7 +31,7 @@ def read_data(n_rows = None):
 		return tab[:n_rows]
 
 if __name__ == '__main__':
-	tab = read_data())
+	tab = read_data()
 	x = tab['col2']
 	y = tab['col3']
 	z = tab['col4']
@@ -43,9 +43,9 @@ if __name__ == '__main__':
 	n_gals = len(x)
 	n_in_bubble = np.empty(n_gals)
 	for ii in range(n_gals):
-		gal_coords = np.array(x[ii], y[ii], z[ii])
+		gal_coords = np.array([[x[ii], y[ii], z[ii]]])
 		# Find all distances between all galaxies
 		dist_to_gal = euclidean_distances(gal_coords, all_coords)
 	
 		n_in_bubble[ii] = np.sum(dist_to_gal < r[ii])
-	
+		### oh but this takes a million years ... do Manu's thing instead 
